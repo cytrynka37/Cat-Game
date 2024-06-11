@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=3 uid="uid://fbbvor7mvdbd"]
+
+[ext_resource type="Script" path="res://scripts/game_over_screen.gd" id="1_pdbgs"]
+
+[node name="GameOverScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pdbgs")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 316.0
+offset_top = 152.0
+offset_right = 806.0
+offset_bottom = 504.0
+
+[node name="Reset" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 172.0
+offset_top = 85.0
+offset_right = 301.0
+offset_bottom = 137.0
+text = "RESET"
+
+[node name="Quit" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 169.0
+offset_right = 298.0
+offset_bottom = 221.0
+text = "QUIT"
+
+[connection signal="pressed" from="Panel/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]

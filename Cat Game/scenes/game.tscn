@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=3 uid="uid://bc7yo2ww2s078"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_ju1hu"]
+[ext_resource type="PackedScene" uid="uid://bdmmay3gk26xt" path="res://scenes/player.tscn" id="1_myudb"]
+[ext_resource type="PackedScene" uid="uid://c0if7wkbrwf8m" path="res://scenes/hud.tscn" id="2_emh7b"]
+[ext_resource type="PackedScene" uid="uid://bse81i1dgscvm" path="res://scenes/fish.tscn" id="2_sqgpu"]
+[ext_resource type="PackedScene" uid="uid://cwkktrapr0nfm" path="res://scenes/menu.tscn" id="3_23bis"]
+[ext_resource type="Texture2D" uid="uid://dj85eeyjpyg24" path="res://icon.svg" id="3_ru6c7"]
+[ext_resource type="PackedScene" uid="uid://15bo37j3knon" path="res://scenes/wizard.tscn" id="4_mx0se"]
+[ext_resource type="PackedScene" uid="uid://fbbvor7mvdbd" path="res://scenes/game_over_screen.tscn" id="5_6igvu"]
+[ext_resource type="PackedScene" uid="uid://c7j7l8gx70cig" path="res://scenes/coin.tscn" id="8_x1lae"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_54ksl"]
+size = Vector2(1090, 38)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_ju1hu")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("2_emh7b")]
+
+[node name="Menu" parent="UI" instance=ExtResource("3_23bis")]
+process_mode = 0
+visible = false
+
+[node name="GameOverScreen" parent="UI" instance=ExtResource("5_6igvu")]
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("1_myudb")]
+position = Vector2(303, 420)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(578, 536)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(8.4375, 0.328125)
+texture = ExtResource("3_ru6c7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_54ksl")
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Wizard" parent="Enemies" instance=ExtResource("4_mx0se")]
+position = Vector2(955, 404)
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Fish" parent="Items" instance=ExtResource("2_sqgpu")]
+position = Vector2(123, 464)
+
+[node name="Coin" parent="Items" instance=ExtResource("8_x1lae")]
+position = Vector2(518, 256)
+
+[node name="Coin2" parent="Items" instance=ExtResource("8_x1lae")]
+position = Vector2(123, 317)
+
+[connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
+[connection signal="body_entered" from="Items/Fish" to="." method="_on_fish_body_entered"]

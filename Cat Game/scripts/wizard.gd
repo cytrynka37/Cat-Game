@@ -20,7 +20,7 @@ func shoot():
 	bullet.set_damage(damage)
 	bullet_container.add_child(bullet)
 	bullet.global_position = global_position
-	bullet.global_position.x += direction * 100
+	bullet.global_position.x += direction * 20
 
 func _on_timer_timeout():
 	can_shoot = true

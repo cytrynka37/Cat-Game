@@ -21,11 +21,11 @@ func _ready():
 
 func _on_player_took_damage(amount):
 	health -= amount
-	hud.set_life(health)
-	if (health <= 0):
+	if health <= 0:
 		health = 0
-		play_pause(game_over_screen)
-		
+		show_game_over()
+	hud.set_life(health)
+
 func add_lifes(amount):
 	health += amount
 	if health > max_health:
@@ -40,12 +40,14 @@ func _on_enemy_died():
 	add_coins(coins_from_enemy)
 	
 func play_pause(screen):
+	if game_over_screen.visible and paused:
+		return
 	paused = !paused
 	get_tree().paused = paused
 	screen.visible = paused
 
-func reset(screen):
-	play_pause(screen)
+func reset():
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 	
 func resume(screen):
@@ -53,3 +55,8 @@ func resume(screen):
 
 func quit():
 	get_tree().quit()
+
+func show_game_over():
+	paused = true
+	get_tree().paused = true
+	game_over_screen.visible = true

@@ -35,6 +35,7 @@ offset_bottom = 283.0
 text = "QUIT"
 
 [node name="Reset" type="Button" parent="Panel"]
+layout_mode = 0
 offset_left = 128.0
 offset_top = 149.0
 offset_right = 261.0
@@ -43,6 +44,7 @@ text = "RESET
 "
 
 [node name="Resume" type="Button" parent="Panel"]
+layout_mode = 0
 offset_left = 126.0
 offset_top = 65.0
 offset_right = 259.0

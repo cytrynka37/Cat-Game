@@ -12,6 +12,7 @@ var can_shoot = true
 
 var bullet_scene = preload("res://scenes/bullet.tscn")
 
+@onready var sprite = $AnimatedSprite2D
 @onready var bullet_container = $BulletContainer
 @onready var timer = $Timer
 	
@@ -33,6 +34,7 @@ func _physics_process(delta):
 	var direction = 0
 	direction = Input.get_axis("move_left", "move_right")
 	if (direction != 0):
+		sprite.flip_h = (direction == -1)
 		last_direction = direction
 		
 	velocity.x = direction * speed
@@ -45,7 +47,7 @@ func shoot():
 	bullet.set_damage(damage)
 	bullet_container.add_child(bullet)
 	bullet.global_position = global_position
-	bullet.global_position.x += last_direction * 100
+	bullet.global_position.x += last_direction * 20
 
 func _on_timer_timeout():
 	can_shoot = true

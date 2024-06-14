@@ -14,6 +14,7 @@
 size = Vector2(1090, 38)
 
 [node name="Game" type="Node2D"]
+position = Vector2(-47, -52)
 script = ExtResource("1_ju1hu")
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -28,10 +29,13 @@ visible = false
 visible = false
 
 [node name="Player" parent="." instance=ExtResource("1_myudb")]
-position = Vector2(303, 420)
+position = Vector2(174, 281)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(578, 536)
+position = Vector2(269, 300)
+scale = Vector2(0.3, 0.3)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 scale = Vector2(8.4375, 0.328125)
@@ -43,18 +47,18 @@ shape = SubResource("RectangleShape2D_54ksl")
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Wizard" parent="Enemies" instance=ExtResource("4_mx0se")]
-position = Vector2(955, 404)
+position = Vector2(341, 278)
 
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Fish" parent="Items" instance=ExtResource("2_sqgpu")]
-position = Vector2(123, 464)
+position = Vector2(142, 252)
 
 [node name="Coin" parent="Items" instance=ExtResource("8_x1lae")]
-position = Vector2(518, 256)
+position = Vector2(195, 230)
 
 [node name="Coin2" parent="Items" instance=ExtResource("8_x1lae")]
-position = Vector2(123, 317)
+position = Vector2(238, 239)
 
 [connection signal="took_damage" from="Player" to="." method="_on_player_took_damage"]
 [connection signal="body_entered" from="Items/Fish" to="." method="_on_fish_body_entered"]

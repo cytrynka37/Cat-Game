@@ -18,10 +18,10 @@ func _physics_process(_delta):
 	var diff = player.global_position.x - global_position.x
 	if (diff > 0):
 		direction = 1
-		sprite.flip_v = true
+		sprite.flip_h = false
 	else:
 		direction = -1
-		sprite.flip_v = false
+		sprite.flip_h = true
 
 func take_damage(amount):
 	health -= amount

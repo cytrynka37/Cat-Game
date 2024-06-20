@@ -1,17 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdmmay3gk26xt"]
+[gd_scene load_steps=7 format=3 uid="uid://bdmmay3gk26xt"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_6nrfr"]
-[ext_resource type="Texture2D" uid="uid://dr50j3y04yxtm" path="res://cat1.png" id="2_lvfmq"]
-[ext_resource type="Texture2D" uid="uid://gm0wy0gxjcnb" path="res://cat2.png" id="3_4rany"]
+[ext_resource type="Texture2D" uid="uid://c0mbdh8adlmoq" path="res://assets/cat2.png" id="3_llokk"]
+[ext_resource type="Texture2D" uid="uid://cn5djllq35e4k" path="res://assets/cat3.png" id="4_2nv2x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nfrwp"]
-size = Vector2(14, 18)
+size = Vector2(8.57143, 17.1429)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u3gjy"]
+load_path = "res://.godot/imported/cat1.png-a71ee9373ec29edaa2507c26bcbd0b69.ctex"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bfqna"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_lvfmq")
+"texture": SubResource("CompressedTexture2D_u3gjy")
 }],
 "loop": true,
 "name": &"idle",
@@ -19,29 +22,44 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_lvfmq")
+"texture": ExtResource("3_llokk")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_llokk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_4rany")
+"texture": SubResource("CompressedTexture2D_u3gjy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2nv2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_u3gjy")
 }],
 "loop": true,
 "name": &"walking",
-"speed": 3.0
+"speed": 8.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 100
 scale = Vector2(1.4, 1.4)
 collision_layer = 2
+collision_mask = 169
 script = ExtResource("1_6nrfr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 0)
+position = Vector2(-1.42857, -8.55752e-07)
 shape = SubResource("RectangleShape2D_nfrwp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_bfqna")
-animation = &"idle"
-frame_progress = 0.199765
+animation = &"jump"
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5

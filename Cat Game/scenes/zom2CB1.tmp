@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2wha4u234lbo"]
+
+[ext_resource type="Script" path="res://scripts/zombie.gd" id="1_ykp7d"]
+[ext_resource type="Texture2D" uid="uid://bw863k751aorb" path="res://zombie1.png" id="2_nh5yu"]
+[ext_resource type="PackedScene" uid="uid://dq46t5v4ggdk4" path="res://scenes/health_bar.tscn" id="3_jag5t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rqjn0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nh5yu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kcnee"]
+size = Vector2(16, 18)
+
+[node name="Zombie" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_ykp7d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rqjn0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_kcnee")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_kcnee")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_jag5t")]
+offset_left = -14.0
+offset_top = -14.0
+offset_right = -14.0
+offset_bottom = -14.0
+scale = Vector2(0.336938, 0.204439)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

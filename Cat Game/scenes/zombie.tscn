@@ -1,16 +1,75 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2wha4u234lbo"]
+[gd_scene load_steps=9 format=3 uid="uid://d2wha4u234lbo"]
 
-[ext_resource type="Texture2D" uid="uid://dj85eeyjpyg24" path="res://icon.svg" id="1_xoh7u"]
 [ext_resource type="Script" path="res://scripts/zombie.gd" id="1_ykp7d"]
+[ext_resource type="PackedScene" uid="uid://dq46t5v4ggdk4" path="res://scenes/health_bar.tscn" id="3_jag5t"]
+[ext_resource type="Texture2D" uid="uid://cfqwnu8dnl8wy" path="res://assets/zombie1.png" id="3_qwfnb"]
+[ext_resource type="Texture2D" uid="uid://tsotqbou4htb" path="res://assets/zombie2.png" id="4_3lq33"]
+[ext_resource type="Texture2D" uid="uid://fm2ip1bvanx4" path="res://assets/zombie3.png" id="5_sorlp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rqjn0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qwfnb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3lq33")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qwfnb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_sorlp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kcnee"]
-size = Vector2(124, 126)
+size = Vector2(17.6608, 22.966)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5aj82"]
+size = Vector2(11.1111, 15)
 
 [node name="Zombie" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 8
+collision_mask = 3
 script = ExtResource("1_ykp7d")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HealthBar" parent="." instance=ExtResource("3_jag5t")]
+offset_left = -13.0
+offset_top = -14.0
+offset_right = -13.0
+offset_bottom = -14.0
+scale = Vector2(0.304973, 0.188797)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rqjn0")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-2, 1)
+scale = Vector2(0.679472, 0.696682)
 shape = SubResource("RectangleShape2D_kcnee")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_xoh7u")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 2.24999)
+scale = Vector2(0.9, 0.9)
+shape = SubResource("RectangleShape2D_5aj82")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(-1, 0)
+target_position = Vector2(9, 0)
+collide_with_areas = true
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(-2, 0)
+target_position = Vector2(-9, 0)
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

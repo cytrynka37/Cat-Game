@@ -1,10 +1,6 @@
 extends Control
 
-@onready var coins = $Coins
-@onready var life = $Life
+@onready var score = $Score
 
-func set_coins(new_coins):
-	coins.text = "coins: " + str(new_coins)
-	
-func set_life(new_life):
-	life.text = "life: " + str(new_life)
+func set_score(new_score):
+	score.text = "score: " + str(new_score)

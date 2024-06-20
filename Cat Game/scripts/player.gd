@@ -4,8 +4,8 @@ class_name Player
 signal took_damage(amount)
 
 @export var gravity = 400
-@export var jump_velocity = 300
-@export var speed = 200
+@export var jump_velocity = 200
+@export var speed = 135
 @export var damage = 1
 var last_direction = 1
 var can_shoot = true
@@ -28,7 +28,7 @@ func _physics_process(delta):
 		if velocity.y > 500:
 			velocity.y = 500
 	
-	if Input.is_action_just_pressed("jump"): ##&& is_on_floor():
+	if Input.is_action_just_pressed("jump") && is_on_floor():
 		velocity.y = -jump_velocity
 	
 	var direction = 0
@@ -40,14 +40,25 @@ func _physics_process(delta):
 	velocity.x = direction * speed
 
 	move_and_slide()
+	
+	update_animations(direction)
 
+func update_animations(direction):
+	if is_on_floor():
+		if direction == 0:
+			sprite.play("idle")
+		else:
+			sprite.play("walking")
+	else:
+		sprite.play("jump")
+		
 func shoot():
 	var bullet = bullet_scene.instantiate()
 	bullet.set_direction(last_direction)
 	bullet.set_damage(damage)
 	bullet_container.add_child(bullet)
 	bullet.global_position = global_position
-	bullet.global_position.x += last_direction * 20
+	bullet.global_position.x += last_direction * 15
 
 func _on_timer_timeout():
 	can_shoot = true

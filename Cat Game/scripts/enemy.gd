@@ -6,22 +6,13 @@ signal died
 @export var gravity = 400
 @export var max_health = 3
 var health = 0
-var direction = 0
+var direction = 1
 
 @onready var player = get_parent().get_parent().get_node("Player")
-@onready var sprite = $Sprite2D
+@onready var sprite = $AnimatedSprite2D
 
 func _ready():
 	health = max_health
-
-func _physics_process(_delta):
-	var diff = player.global_position.x - global_position.x
-	if (diff > 0):
-		direction = 1
-		sprite.flip_h = false
-	else:
-		direction = -1
-		sprite.flip_h = true
 
 func take_damage(amount):
 	health -= amount

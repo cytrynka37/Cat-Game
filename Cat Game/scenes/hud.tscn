@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0if7wkbrwf8m"]
+[gd_scene load_steps=4 format=3 uid="uid://c0if7wkbrwf8m"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_6pr40"]
+[ext_resource type="FontFile" uid="uid://cx1m2pgcbcdye" path="res://assets/fonts/Kenney Pixel Square.ttf" id="2_msrhx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f04wv"]
+font = ExtResource("2_msrhx")
+outline_size = 3
+outline_color = Color(0.603922, 0.0235294, 0, 1)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -11,16 +17,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6pr40")
 
-[node name="Coins" type="Label" parent="."]
+[node name="Score" type="Label" parent="."]
 layout_mode = 0
 offset_right = 52.0
 offset_bottom = 24.0
-text = "coins: 9999"
-
-[node name="Life" type="Label" parent="."]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 22.0
-offset_right = 41.0
-offset_bottom = 45.0
-text = "Lifes: 9999"
+text = "SCORE: 9999"
+label_settings = SubResource("LabelSettings_f04wv")

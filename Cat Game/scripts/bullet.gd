@@ -14,5 +14,7 @@ func _physics_process(delta):
 	global_position.x += speed * direction * delta
 
 func _on_body_entered(body):
+	if body is Player or body is Enemy:
+		body.take_damage(damage)
 	queue_free()
-	body.take_damage(damage)
+
